@@ -16,22 +16,33 @@ A powerful Python code generation tool that leverages Large Language Models (LLM
 ## Project Structure
 
 ```
-llm-auto-codegen/
-├── src/                    # Core source code
-│   ├── main.py            # Main application logic
-│   ├── llm_handler.py     # LLM integration and API handling
-│   ├── code_parser.py     # Code extraction from LLM responses
-│   └── utils.py           # Utility functions
-├── analysis/              # Code analysis modules
-│   ├── static_analyzer.py # Pylint and Bandit integration
-│   └── dynamic_analyzer.py # Future dynamic analysis (placeholder)
-├── dev/streamlit/         # Streamlit web application
-│   └── app.py            # Main Streamlit app
-├── config/               # Configuration files
-│   └── .env             # Environment variables (API keys)
-├── tests/               # Test suite
-├── app_logs/            # Application logs
-└── requirements.txt     # Python dependencies
+AI-Coding-Agent-Pipeline/
+├── src/                                          # Core source code
+│   ├── __init__.py                              # Source package initialization
+│   ├── main.py                                  # Main application logic and LangChain pipeline
+│   ├── llm_handler.py                           # LLM integration and API handling for multiple providers
+│   ├── code_parser.py                           # Code extraction from LLM responses
+│   ├── context_handler.py                       # File context processing and prompt creation
+│   ├── utils.py                                 # Utility functions and helpers
+│   └── analysis/                                # Code analysis modules
+│       ├── static_analyzer/                     # Static code analysis tools
+│       │   └── static_analyzer.py               # Pylint, Bandit, and MyPy integration
+│       └── dynamic_analyzer/                    # Dynamic code analysis tools
+│           ├── dynamic_analyzer_main.py         # Main dynamic analysis orchestrator
+│           ├── dynapyt_analyzer.py              # DynaPyt-based runtime analysis
+│           ├── codeact_wrapper.py               # CodeAct integration wrapper
+│           └── codeact.py                       # CodeAct execution environment
+├── web/                                         # Web interface components
+│   └── streamlit/                               # Streamlit web application
+│       └── app.py                               # Main Streamlit web interface
+├── config/                                      # Configuration files
+│   └── .env                                     # Environment variables (API keys)
+├── tests/                                       # Test suite (future implementation)
+├── app_logs/                                    # Application runtime logs
+├── requirements.txt                             # Python dependencies
+├── .gitignore                                   # Git ignore patterns
+├── LICENSE                                      # Project license
+└── README.md                                    # Project documentation and setup guide
 ```
 
 ## Prerequisites
