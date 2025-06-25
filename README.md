@@ -1,6 +1,7 @@
 # LLM Auto Code Generation Tool 🐍
 
 A powerful Python code generation tool that leverages Large Language Models (LLMs) to automatically generate, analyze, and improve Python code. The tool integrates static analysis with automated code generation to ensure high-quality, secure, and lint-free Python code.
+![image](https://github.com/user-attachments/assets/98c4edd7-78c6-496b-a706-41f87db861b7)
 
 ## Features
 
