@@ -1,0 +1,1010 @@
+2025-06-20 20:14:03,152 - INFO - --- New Code Generation Request ---
+2025-06-20 20:14:03,152 - INFO - User Query: weather app that uses api without key ... show berlin weather
+2025-06-20 20:14:03,152 - INFO - Selected Model: gpt-4o-mini
+2025-06-20 20:14:03,153 - INFO - 
+--- Attempt 1 of 5 ---
+2025-06-20 20:14:03,154 - INFO - Prompt to LLM (Attempt 1):
+weather app that uses api without key ... show berlin weather
+2025-06-20 20:14:05,218 - INFO - LLM Raw Response (Attempt 1):
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url)
+    return response.json()
+
+berlin_weather = get_weather("Berlin")
+print(berlin_weather)
+```
+2025-06-20 20:14:05,219 - INFO - Extracted Code (Attempt 1):
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url)
+    return response.json()
+
+berlin_weather = get_weather("Berlin")
+print(berlin_weather)
+2025-06-20 20:14:08,726 - INFO - Pylint Issues (Attempt 1): line 5:15: [W3101(missing-timeout)] Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely
+2025-06-20 20:14:08,726 - INFO - Bandit Issues (Attempt 1): Bandit: [MEDIUM/LOW] Call to requests without timeout (ID: B113, Line: 5)
+2025-06-20 20:14:08,726 - INFO - MyPy Issues (Attempt 1): No issues found.
+2025-06-20 20:14:08,726 - INFO - Dynamic Analysis Issues (Attempt 1): Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:14:08,727 - WARNING - Found 4 issues. Details logged.
+2025-06-20 20:14:08,727 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:14:08,728 - INFO - 
+--- Attempt 2 of 5 ---
+2025-06-20 20:14:08,728 - INFO - Prompt to LLM (Attempt 2):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url)
+    return response.json()
+
+berlin_weather = get_weather("Berlin")
+print(berlin_weather)
+```
+However, static analysis found these issues:
+- line 5:15: [W3101(missing-timeout)] Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely
+- Bandit: [MEDIUM/LOW] Call to requests without timeout (ID: B113, Line: 5)
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:14:11,547 - INFO - LLM Raw Response (Attempt 2):
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)  # Added timeout argument
+    return response.json()
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    print(berlin_weather)
+```
+2025-06-20 20:14:11,548 - INFO - Extracted Code (Attempt 2):
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)  # Added timeout argument
+    return response.json()
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    print(berlin_weather)
+2025-06-20 20:14:14,905 - INFO - Pylint Issues (Attempt 2): No issues found.
+2025-06-20 20:14:14,905 - INFO - Bandit Issues (Attempt 2): No issues found.
+2025-06-20 20:14:14,905 - INFO - MyPy Issues (Attempt 2): No issues found.
+2025-06-20 20:14:14,905 - INFO - Dynamic Analysis Issues (Attempt 2): Dynamic Analysis [INFO]: 1 uncovered branches detected (50.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:14:14,905 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:14:14,906 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:14:14,906 - INFO - 
+--- Attempt 3 of 5 ---
+2025-06-20 20:14:14,906 - INFO - Prompt to LLM (Attempt 3):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)  # Added timeout argument
+    return response.json()
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    print(berlin_weather)
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (50.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:14:18,719 - INFO - LLM Raw Response (Attempt 3):
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": "Unable to fetch weather data"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+```
+2025-06-20 20:14:18,719 - INFO - Extracted Code (Attempt 3):
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": "Unable to fetch weather data"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+2025-06-20 20:14:20,161 - INFO - Pylint Issues (Attempt 3): No issues found.
+2025-06-20 20:14:20,161 - INFO - Bandit Issues (Attempt 3): No issues found.
+2025-06-20 20:14:20,161 - INFO - MyPy Issues (Attempt 3): No issues found.
+2025-06-20 20:14:20,161 - INFO - Dynamic Analysis Issues (Attempt 3): Dynamic Analysis [INFO]: 2 uncovered branches detected (75.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+2025-06-20 20:14:20,161 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:14:20,161 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:14:20,162 - INFO - 
+--- Attempt 4 of 5 ---
+2025-06-20 20:14:20,162 - INFO - Prompt to LLM (Attempt 4):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": "Unable to fetch weather data"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 2 uncovered branches detected (75.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:14:23,084 - INFO - LLM Raw Response (Attempt 4):
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": f"Unable to fetch weather data: {response.status_code}"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+```
+
+2025-06-20 20:14:23,084 - INFO - Extracted Code (Attempt 4):
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": f"Unable to fetch weather data: {response.status_code}"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+2025-06-20 20:14:24,628 - INFO - Pylint Issues (Attempt 4): No issues found.
+2025-06-20 20:14:24,628 - INFO - Bandit Issues (Attempt 4): No issues found.
+2025-06-20 20:14:24,628 - INFO - MyPy Issues (Attempt 4): No issues found.
+2025-06-20 20:14:24,628 - INFO - Dynamic Analysis Issues (Attempt 4): Dynamic Analysis [INFO]: 2 uncovered branches detected (75.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+2025-06-20 20:14:24,628 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:14:24,629 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:14:24,629 - INFO - 
+--- Attempt 5 of 5 ---
+2025-06-20 20:14:24,629 - INFO - Prompt to LLM (Attempt 5):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": f"Unable to fetch weather data: {response.status_code}"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 2 uncovered branches detected (75.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:14:27,807 - INFO - LLM Raw Response (Attempt 5):
+```python
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    elif response.status_code == 404:
+        return {"error": "City not found"}
+    else:
+        return {"error": f"Unable to fetch weather data: {response.status_code}"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+```
+2025-06-20 20:14:27,807 - INFO - Extracted Code (Attempt 5):
+import requests
+
+def get_weather(city):
+    url = f"http://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}&aqi=no"
+    response = requests.get(url, timeout=10)
+    if response.status_code == 200:
+        return response.json()
+    elif response.status_code == 404:
+        return {"error": "City not found"}
+    else:
+        return {"error": f"Unable to fetch weather data: {response.status_code}"}
+
+if __name__ == "__main__":
+    berlin_weather = get_weather("Berlin")
+    if "error" in berlin_weather:
+        print(berlin_weather["error"])
+    else:
+        print(berlin_weather)
+2025-06-20 20:14:29,387 - INFO - Pylint Issues (Attempt 5): No issues found.
+2025-06-20 20:14:29,387 - INFO - Bandit Issues (Attempt 5): No issues found.
+2025-06-20 20:14:29,387 - INFO - MyPy Issues (Attempt 5): No issues found.
+2025-06-20 20:14:29,387 - INFO - Dynamic Analysis Issues (Attempt 5): Dynamic Analysis [INFO]: 3 uncovered branches detected (75.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 3 uncovered branches
+2025-06-20 20:14:29,387 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:14:29,388 - WARNING - Max retries reached. Displaying last attempt with issues.
+2025-06-20 20:14:56,553 - INFO - --- New Code Generation Request ---
+2025-06-20 20:14:56,553 - INFO - User Query: weather app that uses api without key ... show berlin weather
+2025-06-20 20:14:56,555 - INFO - Selected Model: gpt-3.5-turbo
+2025-06-20 20:14:56,555 - INFO - 
+--- Attempt 1 of 5 ---
+2025-06-20 20:14:56,555 - INFO - Prompt to LLM (Attempt 1):
+weather app that uses api without key ... show berlin weather
+2025-06-20 20:14:57,973 - INFO - LLM Raw Response (Attempt 1):
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+2025-06-20 20:14:57,973 - INFO - Extracted Code (Attempt 1):
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+2025-06-20 20:14:59,596 - INFO - Pylint Issues (Attempt 1): line 5:11: [W3101(missing-timeout)] Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely
+2025-06-20 20:14:59,596 - INFO - Bandit Issues (Attempt 1): Bandit: [MEDIUM/LOW] Call to requests without timeout (ID: B113, Line: 5)
+2025-06-20 20:14:59,596 - INFO - MyPy Issues (Attempt 1): No issues found.
+2025-06-20 20:14:59,596 - INFO - Dynamic Analysis Issues (Attempt 1): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:14:59,596 - WARNING - Found 4 issues. Details logged.
+2025-06-20 20:14:59,597 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:14:59,597 - INFO - 
+--- Attempt 2 of 5 ---
+2025-06-20 20:14:59,597 - INFO - Prompt to LLM (Attempt 2):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+However, static analysis found these issues:
+- line 5:11: [W3101(missing-timeout)] Missing timeout argument for method 'requests.get' can cause your program to hang indefinitely
+- Bandit: [MEDIUM/LOW] Call to requests without timeout (ID: B113, Line: 5)
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:15:01,203 - INFO - LLM Raw Response (Attempt 2):
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url, timeout=10)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+2025-06-20 20:15:01,204 - INFO - Extracted Code (Attempt 2):
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url, timeout=10)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+2025-06-20 20:15:02,806 - INFO - Pylint Issues (Attempt 2): No issues found.
+2025-06-20 20:15:02,806 - INFO - Bandit Issues (Attempt 2): No issues found.
+2025-06-20 20:15:02,806 - INFO - MyPy Issues (Attempt 2): No issues found.
+2025-06-20 20:15:02,806 - INFO - Dynamic Analysis Issues (Attempt 2): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:15:02,806 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:15:02,808 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:15:02,808 - INFO - 
+--- Attempt 3 of 5 ---
+2025-06-20 20:15:02,808 - INFO - Prompt to LLM (Attempt 3):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid="
+response = requests.get(url, timeout=10)
+data = response.json()
+
+if response.status_code == 200:
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:15:04,726 - INFO - LLM Raw Response (Attempt 3):
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+2025-06-20 20:15:04,726 - INFO - Extracted Code (Attempt 3):
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+2025-06-20 20:15:06,343 - INFO - Pylint Issues (Attempt 3): No issues found.
+2025-06-20 20:15:06,343 - INFO - Bandit Issues (Attempt 3): No issues found.
+2025-06-20 20:15:06,343 - INFO - MyPy Issues (Attempt 3): No issues found.
+2025-06-20 20:15:06,343 - INFO - Dynamic Analysis Issues (Attempt 3): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:15:06,344 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:15:06,344 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:15:06,344 - INFO - 
+--- Attempt 4 of 5 ---
+2025-06-20 20:15:06,345 - INFO - Prompt to LLM (Attempt 4):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+else:
+    print("Failed to retrieve weather data.")
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:15:08,197 - INFO - LLM Raw Response (Attempt 4):
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+elif response.status_code == 404:
+    print("City not found.")
+else:
+    print("Failed to retrieve weather data.")
+```
+2025-06-20 20:15:08,198 - INFO - Extracted Code (Attempt 4):
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+elif response.status_code == 404:
+    print("City not found.")
+else:
+    print("Failed to retrieve weather data.")
+2025-06-20 20:15:09,873 - INFO - Pylint Issues (Attempt 4): No issues found.
+2025-06-20 20:15:09,873 - INFO - Bandit Issues (Attempt 4): No issues found.
+2025-06-20 20:15:09,873 - INFO - MyPy Issues (Attempt 4): No issues found.
+2025-06-20 20:15:09,873 - INFO - Dynamic Analysis Issues (Attempt 4): Dynamic Analysis [INFO]: 2 uncovered branches detected (71.4% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+2025-06-20 20:15:09,874 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:15:09,874 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:15:09,874 - INFO - 
+--- Attempt 5 of 5 ---
+2025-06-20 20:15:09,875 - INFO - Prompt to LLM (Attempt 5):
+The following Python code was generated for the request: 'weather app that uses api without key ... show berlin weather'
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+elif response.status_code == 404:
+    print("City not found.")
+else:
+    print("Failed to retrieve weather data.")
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 2 uncovered branches detected (71.4% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:15:11,775 - INFO - LLM Raw Response (Attempt 5):
+```python
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+elif response.status_code == 404:
+    print("City not found.")
+else:
+    print("Failed to retrieve weather data.")
+```
+2025-06-20 20:15:11,775 - INFO - Extracted Code (Attempt 5):
+import requests
+
+city = "Berlin"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=YOUR_API_KEY"
+response = requests.get(url, timeout=10)
+
+if response.status_code == 200:
+    data = response.json()
+    weather = data['weather'][0]['description']
+    temperature = data['main']['temp']
+    print(f"The weather in {city} is {weather} with a temperature of {temperature} Kelvin.")
+elif response.status_code == 404:
+    print("City not found.")
+else:
+    print("Failed to retrieve weather data.")
+2025-06-20 20:15:13,406 - INFO - Pylint Issues (Attempt 5): No issues found.
+2025-06-20 20:15:13,407 - INFO - Bandit Issues (Attempt 5): No issues found.
+2025-06-20 20:15:13,407 - INFO - MyPy Issues (Attempt 5): No issues found.
+2025-06-20 20:15:13,407 - INFO - Dynamic Analysis Issues (Attempt 5): Dynamic Analysis [INFO]: 2 uncovered branches detected (71.4% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 2 uncovered branches
+2025-06-20 20:15:13,407 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:15:13,408 - WARNING - Max retries reached. Displaying last attempt with issues.
+2025-06-20 20:17:26,415 - INFO - --- New Code Generation Request ---
+2025-06-20 20:17:26,416 - INFO - User Query: def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want
+2025-06-20 20:17:26,416 - INFO - Selected Model: gpt-3.5-turbo
+2025-06-20 20:17:26,417 - INFO - 
+--- Attempt 1 of 5 ---
+2025-06-20 20:17:26,417 - INFO - Prompt to LLM (Attempt 1):
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want
+2025-06-20 20:17:27,871 - INFO - LLM Raw Response (Attempt 1):
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+def random_function():
+    return random.randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+```
+2025-06-20 20:17:27,872 - INFO - Extracted Code (Attempt 1):
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+def random_function():
+    return random.randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+2025-06-20 20:17:29,207 - INFO - Pylint Issues (Attempt 1): No issues found.
+2025-06-20 20:17:29,207 - INFO - Bandit Issues (Attempt 1): Bandit: [LOW/HIGH] Standard pseudo-random generators are not suitable for security/cryptographic purposes. (ID: B311, Line: 12)
+2025-06-20 20:17:29,208 - INFO - MyPy Issues (Attempt 1): line 6:10: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+2025-06-20 20:17:29,208 - INFO - Dynamic Analysis Issues (Attempt 1): Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:17:29,208 - WARNING - Found 4 issues. Details logged.
+2025-06-20 20:17:29,208 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:17:29,209 - INFO - 
+--- Attempt 2 of 5 ---
+2025-06-20 20:17:29,209 - INFO - Prompt to LLM (Attempt 2):
+The following Python code was generated for the request: 'def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want'
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+def random_function():
+    return random.randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+```
+However, static analysis found these issues:
+- Bandit: [LOW/HIGH] Standard pseudo-random generators are not suitable for security/cryptographic purposes. (ID: B311, Line: 12)
+- line 6:10: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:17:30,798 - INFO - LLM Raw Response (Attempt 2):
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+```
+2025-06-20 20:17:30,799 - INFO - Extracted Code (Attempt 2):
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+2025-06-20 20:17:32,132 - INFO - Pylint Issues (Attempt 2): No issues found.
+2025-06-20 20:17:32,132 - INFO - Bandit Issues (Attempt 2): No issues found.
+2025-06-20 20:17:32,132 - INFO - MyPy Issues (Attempt 2): No issues found.
+2025-06-20 20:17:32,132 - INFO - Dynamic Analysis Issues (Attempt 2): Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:17:32,133 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:17:32,133 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:17:32,133 - INFO - 
+--- Attempt 3 of 5 ---
+2025-06-20 20:17:32,134 - INFO - Prompt to LLM (Attempt 3):
+The following Python code was generated for the request: 'def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want'
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (0.0% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:17:33,494 - INFO - LLM Raw Response (Attempt 3):
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+```
+2025-06-20 20:17:33,494 - INFO - Extracted Code (Attempt 3):
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+2025-06-20 20:17:34,874 - INFO - Pylint Issues (Attempt 3): No issues found.
+2025-06-20 20:17:34,874 - INFO - Bandit Issues (Attempt 3): No issues found.
+2025-06-20 20:17:34,874 - INFO - MyPy Issues (Attempt 3): No issues found.
+2025-06-20 20:17:34,874 - INFO - Dynamic Analysis Issues (Attempt 3): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:17:34,874 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:17:34,875 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:17:34,875 - INFO - 
+--- Attempt 4 of 5 ---
+2025-06-20 20:17:34,876 - INFO - Prompt to LLM (Attempt 4):
+The following Python code was generated for the request: 'def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want'
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:17:36,298 - INFO - LLM Raw Response (Attempt 4):
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+```
+2025-06-20 20:17:36,298 - INFO - Extracted Code (Attempt 4):
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+2025-06-20 20:17:37,664 - INFO - Pylint Issues (Attempt 4): No issues found.
+2025-06-20 20:17:37,664 - INFO - Bandit Issues (Attempt 4): No issues found.
+2025-06-20 20:17:37,664 - INFO - MyPy Issues (Attempt 4): No issues found.
+2025-06-20 20:17:37,664 - INFO - Dynamic Analysis Issues (Attempt 4): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:17:37,664 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:17:37,665 - INFO - Attempting to fix issues. New prompt prepared for LLM.
+2025-06-20 20:17:37,665 - INFO - 
+--- Attempt 5 of 5 ---
+2025-06-20 20:17:37,665 - INFO - Prompt to LLM (Attempt 5):
+The following Python code was generated for the request: 'def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = "hello" 
+
+result = add_numbers(x, 5)  # Also wrong due to above
+print(result)
+
+
+this is my code ... i need you to just add a random function whatever you want'
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+```
+However, static analysis found these issues:
+- Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+
+Please provide a corrected version of the Python code. Output ONLY the corrected Python code block, enclosed in ```python ... ```.
+2025-06-20 20:17:39,474 - INFO - LLM Raw Response (Attempt 5):
+```python
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+```
+2025-06-20 20:17:39,475 - INFO - Extracted Code (Attempt 5):
+import random
+
+def add_numbers(a: int, b: int) -> int:
+    return a + b
+
+x: int = 5
+
+result = add_numbers(x, 5)
+print(result)
+
+def random_function():
+    return random.SystemRandom().randint(1, 100)
+
+random_result = random_function()
+print(random_result)
+
+if random_result % 2 == 0:
+    print("Random result is even")
+else:
+    print("Random result is odd")
+2025-06-20 20:17:40,810 - INFO - Pylint Issues (Attempt 5): No issues found.
+2025-06-20 20:17:40,810 - INFO - Bandit Issues (Attempt 5): No issues found.
+2025-06-20 20:17:40,810 - INFO - MyPy Issues (Attempt 5): No issues found.
+2025-06-20 20:17:40,810 - INFO - Dynamic Analysis Issues (Attempt 5): Dynamic Analysis [INFO]: 1 uncovered branches detected (66.7% coverage)
+- Dynamic Analysis [RECOMMENDATION]: Consider adding tests to cover 1 uncovered branches
+2025-06-20 20:17:40,810 - WARNING - Found 2 issues. Details logged.
+2025-06-20 20:17:40,811 - WARNING - Max retries reached. Displaying last attempt with issues.

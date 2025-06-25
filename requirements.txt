@@ -1,0 +1,14 @@
+python-dotenv
+langchain
+langchain-openai
+langchain-google-genai
+streamlit
+bandit
+pylint
+crosshair-tool
+langgraph_codeact
+dynapyt
+types-requests
+mypy
+openpyxl
+pandas
